@@ -36,6 +36,7 @@
             android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:onClick="onClick"/>
 
 
@@ -73,6 +74,7 @@
             android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:onClick="onClick"/>
 
     </LinearLayout>
