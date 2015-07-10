@@ -13,7 +13,7 @@ import am.narekb.alternativa.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    CharSequence titles[] = {"Score", "Stats"};
+    CharSequence titles[] = {"Score", "History"};
     int numOfTabs = 2;
     TabPagerAdapter adapter;
     ViewPager pager;

@@ -3,6 +3,9 @@ package am.narekb.alternativa.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +16,9 @@ import am.narekb.alternativa.R;
 
 public class ScoreTab extends Fragment implements View.OnClickListener {
 
-    int ourPoints = 0, theirPoints = 0;
+    int ourPoints = 0;
+    int theirPoints = 0;
+
     TextView ourScore;
     TextView theirScore;
 
@@ -28,6 +33,8 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.score_tab, container, false);
         ourScore = (TextView) rootView.findViewById(R.id.our_score);
@@ -43,14 +50,26 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
     }
 
     public void onClick(View v) {
-        //Temporarily show Toast notification until NumberPicker dialog is implemented
-        if (v.getId() == R.id.add_us)
-            Toast.makeText(getActivity(), "Add points to us",Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getActivity(), "Add points to them",
-                    Toast.LENGTH_SHORT).show();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        //Always use getActivity().getSupportFragmentManager() from inside a Fragment, because Fragments can't get Fragment Managers
 
+        ScoreDialog scoreDialog = new ScoreDialog();
+
+        if (v.getId() == R.id.add_us) {
+            scoreDialog.setWhom("us");
+            scoreDialog.show(fm, "Score dialog");
+        }
+        else {
+            scoreDialog.setWhom("them");
+            scoreDialog.show(fm, "Score dialog");
+        }
     }
 
+    public void changeScore(int newScore, CharSequence whom) { //Static because the method will be called from a DialogFragment subclass
+        //Toast.makeText(ctx, newScore + "points added to " + whom,
+        //      Toast.LENGTH_LONG).show();
+
+        //TODO: Find a way to actually call this method
+    }
 
 }
