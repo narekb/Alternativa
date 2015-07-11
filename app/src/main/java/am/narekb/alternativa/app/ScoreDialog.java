@@ -18,10 +18,16 @@ import am.narekb.alternativa.R;
 public class ScoreDialog extends DialogFragment {
     NumberPicker np;
     CharSequence whom; //"us" or "them"
+    ScoreTab mScoreTab; //try keeping an instance
 
     public ScoreDialog() {
         // Empty constructor required for DialogFragment
     }
+
+    public void setScoreFragment(ScoreTab newFragment) {
+        mScoreTab = newFragment;
+    }
+
 
     public void setWhom(CharSequence text) {
         whom = text;
@@ -41,8 +47,7 @@ public class ScoreDialog extends DialogFragment {
                 .setPositiveButton("Add",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                //getActivity().getSupportFragmentManager().findFragmentById(R.id.pager).changeScore(np.getValue(), whom);
-                                //I wish it was that easy
+                                mScoreTab.changeScore(np.getValue(), whom);
                             }
                         }
                 )
@@ -55,19 +60,4 @@ public class ScoreDialog extends DialogFragment {
                 )
                 .create();
     }
-
-    /* @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        getDialog().setTitle("Add points to " + whom);
-        View view = inflater.inflate(R.layout.dialog_add_score, container);
-
-        np = (NumberPicker) view.findViewById(R.id.number_picker);
-        np.setMinValue(1);
-        np.setMaxValue(9);
-        np.setWrapSelectorWheel(false);
-
-        return view;
-    } */
 }

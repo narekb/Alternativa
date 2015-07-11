@@ -54,6 +54,7 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         //Always use getActivity().getSupportFragmentManager() from inside a Fragment, because Fragments can't get Fragment Managers
 
         ScoreDialog scoreDialog = new ScoreDialog();
+        scoreDialog.setScoreFragment(this);
 
         if (v.getId() == R.id.add_us) {
             scoreDialog.setWhom("us");
@@ -65,11 +66,15 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void changeScore(int newScore, CharSequence whom) { //Static because the method will be called from a DialogFragment subclass
-        //Toast.makeText(ctx, newScore + "points added to " + whom,
-        //      Toast.LENGTH_LONG).show();
-
-        //TODO: Find a way to actually call this method
+    public void changeScore(int newScore, CharSequence whom) {
+        if(whom == "us") {
+            ourPoints += newScore;
+            ourScore.setText(""+ourPoints);
+        }
+        else {
+            theirPoints += newScore;
+            theirScore.setText(""+theirPoints);
+        }
     }
 
 }
