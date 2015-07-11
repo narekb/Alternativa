@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
     TextView addUs;
     TextView addThem;
+
+    Button resetButton;
 
     public ScoreTab() {
         // Required empty public constructor
@@ -46,6 +49,9 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         addThem = (TextView) rootView.findViewById(R.id.add_them);
         addThem.setOnClickListener(this);
 
+        resetButton = (Button) rootView.findViewById(R.id.reset_button);
+        resetButton.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -60,21 +66,34 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
             scoreDialog.setWhom("us");
             scoreDialog.show(fm, "Score dialog");
         }
-        else {
+        else if (v.getId() == R.id.add_them) {
             scoreDialog.setWhom("them");
             scoreDialog.show(fm, "Score dialog");
+        }
+        else if (v.getId() == R.id.reset_button) {
+            resetGame();
         }
     }
 
     public void changeScore(int newScore, CharSequence whom) {
         if(whom == "us") {
             ourPoints += newScore;
-            ourScore.setText(""+ourPoints);
+            ourScore.setText("" + ourPoints);
         }
         else {
             theirPoints += newScore;
-            theirScore.setText(""+theirPoints);
+            theirScore.setText("" + theirPoints);
         }
+    }
+
+    public void resetGame() {
+        theirPoints = 0;
+        ourPoints = 0;
+
+        ourScore.setText(""+ourPoints);
+        theirScore.setText("" + theirPoints);
+
+        //TODO: Add ritual SQLite voodoo dance. Write scores to history
     }
 
 }

@@ -1,5 +1,6 @@
 package am.narekb.alternativa.app;
 
+import android.content.pm.ActivityInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
         //Replace ActionBar with Toolbar

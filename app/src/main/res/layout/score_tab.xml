@@ -1,82 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingTop="16dp">
+    android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight=".50">
+        android:paddingTop="16dp">
 
-        <TextView
-            android:text="US"
-            android:textColor="#000"
-            android:textSize ="30sp"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".50">
 
-        <TextView
-            android:id="@+id/our_score"
-            android:textColor="#000"
-            android:text="0"
-            android:textSize ="100sp"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:text="US"
+                android:textColor="#000"
+                android:textSize ="30sp"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/add_us"
-            android:textColor="#000"
-            android:text="+"
-            android:textSize ="50sp"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="onClick"/>
+            <TextView
+                android:id="@+id/our_score"
+                android:textColor="#000"
+                android:text="0"
+                android:textSize ="100sp"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/add_us"
+                android:textColor="#000"
+                android:text="+"
+                android:textSize ="50sp"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".50">
+
+            <TextView
+                android:text="THEM"
+                android:textColor="#000"
+                android:textSize ="30sp"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/their_score"
+                android:textColor="#000"
+                android:text="0"
+                android:textSize ="100sp"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/add_them"
+                android:textColor="#000"
+                android:text="+"
+                android:textSize ="50sp"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"/>
+
+        </LinearLayout>
+
 
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/reset_button"
+        android:background="@drawable/rounder_corners"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="RESET GAME" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight=".50">
-
-        <TextView
-            android:text="THEM"
-            android:textColor="#000"
-            android:textSize ="30sp"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/their_score"
-            android:textColor="#000"
-            android:text="0"
-            android:textSize ="100sp"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/add_them"
-            android:textColor="#000"
-            android:text="+"
-            android:textSize ="50sp"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="onClick"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

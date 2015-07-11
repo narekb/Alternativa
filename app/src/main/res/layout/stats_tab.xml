@@ -10,6 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Feature under construction"
+        android:text="Not yet implemented"
         android:gravity="center" />
 </LinearLayout>
