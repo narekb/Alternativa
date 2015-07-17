@@ -11,8 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import am.narekb.alternativa.R;
+import am.narekb.alternativa.db.DBHandler;
+import am.narekb.alternativa.db.Game;
 
 public class ScoreTab extends Fragment implements View.OnClickListener {
+
+    DBHandler dbHandler;
 
     int ourPoints = 0;
     int theirPoints = 0;
@@ -24,6 +28,8 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
     TextView addThem;
 
     Button resetButton;
+
+    StatsTab mStatsTab; //Keep instance to repopulate ListView after resetting score
 
     public ScoreTab() {
         // Required empty public constructor
@@ -50,6 +56,10 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         resetButton.setOnClickListener(this);
 
         return rootView;
+    }
+
+    public void setStatsTab(StatsTab tab) {
+        mStatsTab = tab;
     }
 
     public void onClick(View v) {
@@ -84,13 +94,21 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
     }
 
     public void resetGame() {
-        theirPoints = 0;
-        ourPoints = 0;
 
-        ourScore.setText(""+ourPoints);
-        theirScore.setText("" + theirPoints);
+        if(ourPoints != 0 || theirPoints != 0) {
+            dbHandler = new DBHandler(getActivity());
+            dbHandler.addGame(new Game(ourPoints, theirPoints));
+            //Add scores to database
+            mStatsTab.displayAllGames();
 
-        //TODO: Add ritual SQLite voodoo dance. Write scores to history
+
+            //...and reset them
+            theirPoints = 0;
+            ourPoints = 0;
+
+            ourScore.setText("" + ourPoints);
+            theirScore.setText("" + theirPoints);
+        }
     }
 
 }

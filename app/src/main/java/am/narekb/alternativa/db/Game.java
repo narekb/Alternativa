@@ -2,11 +2,11 @@ package am.narekb.alternativa.db;
 
 
 public class Game {
-    long id;
+    int id;
     int ourScore;
     int theirScore;
 
-    public long getID() {
+    public int getID() {
         return id;
     }
 
@@ -18,12 +18,16 @@ public class Game {
         return theirScore;
     }
 
-    public void setID(long newID) {
+    public void setID(int newID) {
         id = newID;
     }
 
-    public void setOurScore(long newID) {
-        id = newID;
+    public void setOurScore(int newOurScore) {
+        ourScore = newOurScore;
+    }
+
+    public void setTheirScore(int newTheirScore) {
+        theirScore = newTheirScore;
     }
 
 
@@ -33,7 +37,7 @@ public class Game {
         theirScore = newTheirScore;
     }
 
-    public Game(long newID, int newOurScore, int newTheirScore) {
+    public Game(int newID, int newOurScore, int newTheirScore) {
         id = newID;
         ourScore = newOurScore;
         theirScore = newTheirScore;

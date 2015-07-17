@@ -18,7 +18,7 @@ import am.narekb.alternativa.R;
 public class ScoreDialog extends DialogFragment {
     NumberPicker np;
     CharSequence whom; //"us" or "them"
-    ScoreTab mScoreTab; //try keeping an instance
+    ScoreTab mScoreTab;
 
     public ScoreDialog() {
         // Empty constructor required for DialogFragment

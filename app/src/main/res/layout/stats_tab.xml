@@ -6,10 +6,10 @@
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true" >
 
-    <TextView
+    <ListView
+        android:id="@+id/pastGames"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Not yet implemented"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 </LinearLayout>
