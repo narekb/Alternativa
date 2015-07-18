@@ -13,31 +13,28 @@ import android.widget.ListView;
 
 import am.narekb.alternativa.R;
 import am.narekb.alternativa.db.DBHandler;
-import am.narekb.alternativa.db.Game;
 
 public class StatsTab extends Fragment {
 
     DBHandler dbHandler;
     ListView pastGames;
-    Context mCtx;
     View rootView; //Used for refreshing the ListView from displayAllGames()
+    Context mCtx;
 
-    LayoutInflater inflater;
-    ViewGroup container;
-    Bundle savedInstanceState;
+    SimpleCursorAdapter sca;
 
     public StatsTab() {
         // Required empty public constructor
     }
 
-
     public void setContext(Context ctx) {
         mCtx = ctx;
     }
 
+
     private void getHandler() {
         if (dbHandler == null) {
-            dbHandler = new DBHandler(mCtx);
+            dbHandler = new DBHandler(mCtx); //Alternatively, try with mCtx
         }
         dbHandler.openDB();
     }
@@ -45,36 +42,25 @@ public class StatsTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.inflater = inflater;
-        this.container = container;
-        this.savedInstanceState = savedInstanceState;
-
-        displayAllGames();
-        return rootView;
-    }
-
-
-    public void writeGameToDB(int ourPoints, int theirPoints) {
-        getHandler();
-        dbHandler.addGame(new Game(ourPoints, theirPoints));
-        displayAllGames(); //Refresh list
-    }
-
-    public void displayAllGames() { //Populate ListView with all past Games from DB
         getHandler();
         Cursor cursor = dbHandler.getAllGames();
 
         String[] fromFields = new String[]{DBHandler.KEY_ID, DBHandler.KEY_OUR_SCORE, DBHandler.KEY_THEIR_SCORE};
         int[] intoViews = new int[]{0, R.id.cardOurScore, R.id.cardTheirScore};
 
-        SimpleCursorAdapter sca = new SimpleCursorAdapter(mCtx, R.layout.item_layout, cursor, fromFields, intoViews, 0);
+        sca = new SimpleCursorAdapter(mCtx, R.layout.item_layout, cursor, fromFields, intoViews, 0);
 
         rootView = inflater.inflate(R.layout.stats_tab, container, false);
         pastGames = (ListView) rootView.findViewById(R.id.pastGames);
 
-
         pastGames.setAdapter(sca);
-        sca.notifyDataSetChanged();
+        update();
 
+        return rootView;
+    }
+
+
+    public void update() {
+        sca.swapCursor(dbHandler.getAllGames());
     }
 }

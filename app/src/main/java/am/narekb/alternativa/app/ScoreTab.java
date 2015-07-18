@@ -4,6 +4,7 @@ package am.narekb.alternativa.app;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import am.narekb.alternativa.R;
+import am.narekb.alternativa.db.DBHandler;
+import am.narekb.alternativa.db.Game;
 
 public class ScoreTab extends Fragment implements View.OnClickListener {
 
@@ -25,12 +28,18 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
     Button resetButton;
 
-    StatsTab mStatsTab; //Keep instance of the stats tab by calling setStatsTab(). Games will be added through this.
+    DBHandler dbHandler;
+    FragmentPagerAdapter parent;
+
+    //StatsTab mStatsTab; //Keep instance of the stats tab by calling setStatsTab(). Games will be added through this.
 
     public ScoreTab() {
         // Required empty public constructor
     }
 
+    public void setParent(FragmentPagerAdapter fpa) {
+        parent = fpa;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,9 +63,16 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    public void setStatsTab(StatsTab tab) {
+    /*public void setStatsTab(StatsTab tab) {
         mStatsTab = tab;
-    } //Is called in TabPagerAdapter.getItem()
+    } */ //Is called in TabPagerAdapter.getItem()
+
+    private void getHandler() {
+        if (dbHandler == null) {
+            dbHandler = new DBHandler(getActivity());
+        }
+        dbHandler.openDB();
+    }
 
     public void onClick(View v) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -91,7 +107,7 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
     public void resetGame() {
         if(ourPoints != 0 || theirPoints != 0) {
-            mStatsTab.writeGameToDB(ourPoints, theirPoints);
+            writeGameToDB(ourPoints, theirPoints);
 
             //Reset scores after game is added to DB
             theirPoints = 0;
@@ -100,6 +116,12 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
             ourScore.setText("" + ourPoints);
             theirScore.setText("" + theirPoints);
         }
+    }
+
+    public void writeGameToDB(int ourPoints, int theirPoints) {
+        getHandler();
+        dbHandler.addGame(new Game(ourPoints, theirPoints));
+        parent.notifyDataSetChanged();
     }
 
 }

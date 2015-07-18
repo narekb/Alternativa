@@ -29,13 +29,22 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         StatsTab statsTab = new StatsTab();
 
         statsTab.setContext(mCtx); //Passing down the Context from MainActivity
-        scoreTab.setStatsTab(statsTab); //Needed for calling writeGameToDB() from ScoreTab
+        scoreTab.setParent(this); //Needed for calling writeGameToDB() from ScoreTab
         if(position == 0) {
             return scoreTab;
         }
         else { //NOTE: All new tabs must use "else", and this one must be replaced with "if(position == 1)"
             return statsTab;
         }
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+
+        if (object instanceof StatsTab) {
+            ((StatsTab) object).update();
+        }
+        return super.getItemPosition(object);
     }
 
     public CharSequence getPageTitle(int position) {
