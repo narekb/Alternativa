@@ -11,12 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import am.narekb.alternativa.R;
-import am.narekb.alternativa.db.DBHandler;
-import am.narekb.alternativa.db.Game;
 
 public class ScoreTab extends Fragment implements View.OnClickListener {
-
-    DBHandler dbHandler;
 
     int ourPoints = 0;
     int theirPoints = 0;
@@ -29,7 +25,7 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
     Button resetButton;
 
-    StatsTab mStatsTab; //Keep instance to repopulate ListView after resetting score
+    StatsTab mStatsTab; //Keep instance of the stats tab by calling setStatsTab(). Games will be added through this.
 
     public ScoreTab() {
         // Required empty public constructor
@@ -60,7 +56,7 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
     public void setStatsTab(StatsTab tab) {
         mStatsTab = tab;
-    }
+    } //Is called in TabPagerAdapter.getItem()
 
     public void onClick(View v) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -94,15 +90,10 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
     }
 
     public void resetGame() {
-
         if(ourPoints != 0 || theirPoints != 0) {
-            dbHandler = new DBHandler(getActivity());
-            dbHandler.addGame(new Game(ourPoints, theirPoints));
-            //Add scores to database
-            mStatsTab.displayAllGames();
+            mStatsTab.writeGameToDB(ourPoints, theirPoints);
 
-
-            //...and reset them
+            //Reset scores after game is added to DB
             theirPoints = 0;
             ourPoints = 0;
 

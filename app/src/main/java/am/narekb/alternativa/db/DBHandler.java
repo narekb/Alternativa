@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -57,12 +55,11 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_OUR_SCORE, game.getOurScore());
         values.put(KEY_THEIR_SCORE, game.getTheirScore());
 
-        if(db == null) { db = getWritableDatabase();}
         db.insert(TABLE_GAMES, null, values);
     }
 
     public Game getGame(int id) {
-        if(db == null) { db = getWritableDatabase();}
+        //if(db == null) { db = getWritableDatabase();}
         Cursor cursor = db.query(TABLE_GAMES, new String[] {KEY_ID, KEY_OUR_SCORE, KEY_THEIR_SCORE}, KEY_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -76,7 +73,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor getAllGames() {
         String query = "SELECT * FROM " + TABLE_GAMES;
 
-        if(db == null) { db = getWritableDatabase();}
+        //if(db == null) { db = getWritableDatabase();}
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -87,7 +84,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void deleteGame(Game game) {
-        if(db == null) { db = getWritableDatabase();}
+        //if(db == null) { db = getWritableDatabase();}
         db.delete(TABLE_GAMES, KEY_ID + "=?", new String[] {String.valueOf(game.getID())});
     }
 }

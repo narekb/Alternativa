@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //Use getSupportActionBar.setTitle() for changing the Toolbar text
 
         adapter =  new TabPagerAdapter(getSupportFragmentManager(), titles, numOfTabs);
+        adapter.setContext(getApplicationContext()); //Replacement for getActivity(). Necessary for getWritableDatabase() in StatsTab
 
         tabs = (SlidingTabLayout) findViewById(R.id.slidingtabs);
         tabs.setDistributeEvenly(true);
