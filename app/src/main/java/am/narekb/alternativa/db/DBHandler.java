@@ -83,8 +83,8 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void deleteGame(Game game) {
+    public void deleteGame(int id) {
         //if(db == null) { db = getWritableDatabase();}
-        db.delete(TABLE_GAMES, KEY_ID + "=?", new String[] {String.valueOf(game.getID())});
+        db.delete(TABLE_GAMES, KEY_ID + "=?", new String[] {String.valueOf(id)});
     }
 }
