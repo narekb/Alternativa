@@ -5,6 +5,8 @@ public class Game {
     int id;
     int ourScore;
     int theirScore;
+    String ourName;
+    String theirName;
 
     public int getID() {
         return id;
@@ -18,6 +20,15 @@ public class Game {
         return theirScore;
     }
 
+    public String getOurName() {
+        return ourName;
+    }
+
+    public String getTheirName() {
+        return theirName;
+    }
+
+
     public void setID(int newID) {
         id = newID;
     }
@@ -30,16 +41,27 @@ public class Game {
         theirScore = newTheirScore;
     }
 
-
-
-    public Game(int newOurScore, int newTheirScore) {
-        ourScore = newOurScore;
-        theirScore = newTheirScore;
+    public void setOurName(String newOurName) {
+        ourName = newOurName;
     }
 
-    public Game(int newID, int newOurScore, int newTheirScore) {
+    public void setTheirName(String newTheirName) {
+        theirName = newTheirName;
+    }
+
+
+    public Game(int newOurScore, int newTheirScore, String newOurName, String newTheirName) {
+        ourScore = newOurScore;
+        theirScore = newTheirScore;
+        ourName = newOurName;
+        theirName = newTheirName;
+    }
+
+    public Game(int newID, int newOurScore, int newTheirScore, String newOurName, String newTheirName) {
         id = newID;
         ourScore = newOurScore;
         theirScore = newTheirScore;
+        ourName = newOurName;
+        theirName = newTheirName;
     }
 }

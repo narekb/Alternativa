@@ -1,17 +1,21 @@
 package am.narekb.alternativa.app;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.app.AppCompatActivity;
+
+import am.narekb.alternativa.R;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
 
     CharSequence titles[];
     int numOfTabs;
 
-    Context mCtx; //Must be passed down to StatsTab. getActivity() returns null, thus getWritableDatabase() doesn't work
+    AppCompatActivity mCtx; //Must be passed down to StatsTab. getActivity() returns null, thus getWritableDatabase() doesn't work
 
     public TabPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNum) {
         super(fm);
@@ -19,7 +23,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         this.numOfTabs = mNum;
     }
 
-    public void setContext (Context ctx) {
+    public void setContext (AppCompatActivity ctx) {
         mCtx = ctx;
     }
 
@@ -55,6 +59,4 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return numOfTabs;
     }
-
-
 }

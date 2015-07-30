@@ -1,49 +1,46 @@
 package am.narekb.alternativa.app;
 
-
 import android.app.Dialog;
+import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.NumberPicker;
+import android.widget.EditText;
+
 
 import am.narekb.alternativa.R;
 
 
-public class ScoreDialog extends DialogFragment {
-    NumberPicker np;
-    CharSequence whom; //"us" or "them"
-    //ScoreTab mScoreTab;
+public class NameDialog extends DialogFragment {
+    EditText label;
+    String whose; //"our" or "their"
 
-    public ScoreDialog() {
-        // Empty constructor required for DialogFragment
+    public NameDialog() {
+        // Empty constructor required for NameFragment
     }
 
-    public void setWhom(CharSequence text) {
-        whom = text;
+    public void setWho(String target) {
+        whose = target;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_score, null);
-        np = (NumberPicker) view.findViewById(R.id.number_picker);
-        np.setMinValue(1);
-        np.setMaxValue(7);
-        np.setWrapSelectorWheel(false);
+        View view = inflater.inflate(R.layout.dialog_edit_name, null);
+        label = (EditText) view.findViewById(R.id.team_name);
 
 
         return new AlertDialog.Builder(getActivity())
-                .setTitle("Add points to " + whom)
+                .setTitle("Edit " + whose + " team name")
                 .setView(view)
-                .setPositiveButton("Add",
+                .setPositiveButton("Change",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 ScoreTab scoreTab = (ScoreTab) getActivity().getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":0");
-                                scoreTab.changeScore(np.getValue(), whom);
+                                if(label.getText().toString().trim() != "")
+                                    scoreTab.changeTeamName(label.getText().toString().trim(), whose);
                             }
                         }
                 )

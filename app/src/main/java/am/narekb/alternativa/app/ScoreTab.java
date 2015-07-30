@@ -26,12 +26,13 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
     TextView addUs;
     TextView addThem;
 
+    TextView ourLabel;
+    TextView theirLabel;
+
     Button resetButton;
 
     DBHandler dbHandler;
     FragmentPagerAdapter parent;
-
-    //StatsTab mStatsTab; //Keep instance of the stats tab by calling setStatsTab(). Games will be added through this.
 
     public ScoreTab() {
         // Required empty public constructor
@@ -48,6 +49,12 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.score_tab, container, false);
+        ourLabel = (TextView) rootView.findViewById(R.id.our_label);
+        ourLabel.setOnClickListener(this);
+
+        theirLabel = (TextView) rootView.findViewById(R.id.their_label);
+        theirLabel.setOnClickListener(this);
+
         ourScore = (TextView) rootView.findViewById(R.id.our_score);
         theirScore = (TextView) rootView.findViewById(R.id.their_score);
 
@@ -63,10 +70,6 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    /*public void setStatsTab(StatsTab tab) {
-        mStatsTab = tab;
-    } */ //Is called in TabPagerAdapter.getItem()
-
     private void getHandler() {
         if (dbHandler == null) {
             dbHandler = new DBHandler(getActivity());
@@ -79,7 +82,7 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         //Always use getActivity().getSupportFragmentManager() from inside a Fragment, because Fragments can't get Fragment Managers
 
         ScoreDialog scoreDialog = new ScoreDialog();
-        scoreDialog.setScoreFragment(this);
+        NameDialog nameDialog = new NameDialog();
 
         if (v.getId() == R.id.add_us) {
             scoreDialog.setWhom("us");
@@ -89,9 +92,27 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
             scoreDialog.setWhom("them");
             scoreDialog.show(fm, "Score dialog");
         }
+
+        else if (v.getId() == R.id.our_label) {
+            nameDialog.setWho("our");
+            nameDialog.show(fm, "Name dialog");
+        }
+
+        else if (v.getId() == R.id.their_label) {
+            nameDialog.setWho("their");
+            nameDialog.show(fm, "Name dialog");
+        }
+
         else if (v.getId() == R.id.reset_button) {
             resetGame();
         }
+    }
+
+    public void changeTeamName(String newName, String target) {
+        if (target.equals("our"))
+            ourLabel.setText(newName);
+        else if (target.equals("their"))
+            theirLabel.setText(newName);
     }
 
     public void changeScore(int newScore, CharSequence whom) {
@@ -107,7 +128,7 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
 
     public void resetGame() {
         if(ourPoints != 0 || theirPoints != 0) {
-            writeGameToDB(ourPoints, theirPoints);
+            writeGameToDB(ourPoints, theirPoints, ourLabel.getText().toString(), theirLabel.getText().toString());
 
             //Reset scores after game is added to DB
             theirPoints = 0;
@@ -118,9 +139,9 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void writeGameToDB(int ourPoints, int theirPoints) {
+    public void writeGameToDB(int ourPoints, int theirPoints, String ourName, String theirName) {
         getHandler();
-        dbHandler.addGame(new Game(ourPoints, theirPoints));
+        dbHandler.addGame(new Game(ourPoints, theirPoints, ourName, theirName));
         parent.notifyDataSetChanged();
     }
 

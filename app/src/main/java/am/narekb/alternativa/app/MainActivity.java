@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     CharSequence titles[] = {"Score", "History"};
     int numOfTabs = 2;
-    TabPagerAdapter adapter;
+    public TabPagerAdapter adapter;
     ViewPager pager;
     SlidingTabLayout tabs;
 

@@ -18,12 +18,14 @@
             android:layout_weight=".50">
 
             <TextView
+                android:id="@+id/our_label"
                 android:text="US"
                 android:textColor="#000"
                 android:textSize ="30sp"
                 android:gravity="center"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true"/>
 
             <TextView
                 android:id="@+id/our_score"
@@ -55,12 +57,14 @@
             android:layout_weight=".50">
 
             <TextView
+                android:id="@+id/their_label"
                 android:text="THEM"
                 android:textColor="#000"
                 android:textSize ="30sp"
                 android:gravity="center"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true" />
 
             <TextView
                 android:id="@+id/their_score"

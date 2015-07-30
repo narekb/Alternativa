@@ -50,8 +50,8 @@ public class StatsTab extends Fragment {
         getHandler();
         Cursor cursor = dbHandler.getAllGames();
 
-        String[] fromFields = new String[]{DBHandler.KEY_ID, DBHandler.KEY_OUR_SCORE, DBHandler.KEY_THEIR_SCORE};
-        int[] intoViews = new int[]{R.id.rowId, R.id.cardOurScore, R.id.cardTheirScore};
+        String[] fromFields = new String[]{DBHandler.KEY_ID, DBHandler.KEY_OUR_SCORE, DBHandler.KEY_THEIR_SCORE, DBHandler.KEY_OUR_NAME, DBHandler.KEY_THEIR_NAME};
+        int[] intoViews = new int[]{R.id.rowId, R.id.cardOurScore, R.id.cardTheirScore, R.id.cardOurName, R.id.cardTheirName};
 
         sca = new SimpleCursorAdapter(mCtx, R.layout.item_layout, cursor, fromFields, intoViews, 0);
 
@@ -62,7 +62,7 @@ public class StatsTab extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 rowId = (TextView)view.findViewById(R.id.rowId);
-                dbHandler.deleteGame(Integer.parseInt(rowId.getText().toString())); //TODO: Cast to int
+                dbHandler.deleteGame(Integer.parseInt(rowId.getText().toString()));
                 sca.notifyDataSetChanged();
                 update();
             }

@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
     private static final String DB_NAME = "pastGames";
     private static final String TABLE_GAMES = "games";
 
@@ -18,9 +18,11 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String KEY_ID = "_id";
     public static final String KEY_OUR_SCORE = "our_score";
     public static final String KEY_THEIR_SCORE = "their_score";
+    public static final String KEY_OUR_NAME = "our_name";
+    public static final String KEY_THEIR_NAME = "their_name";
+
 
     public SQLiteDatabase db;
-
 
 
     public DBHandler (Context ctx) {
@@ -33,7 +35,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 "CREATE TABLE " + TABLE_GAMES + " ("
                 + KEY_ID + " INTEGER PRIMARY KEY, "
                 + KEY_OUR_SCORE + " INTEGER, "
-                + KEY_THEIR_SCORE + " INTEGER " + ")";
+                + KEY_THEIR_SCORE + " INTEGER, "
+                + KEY_OUR_NAME + " VARCHAR(10), "
+                + KEY_THEIR_NAME + " VARCHAR(10)"
+                + ")";
+
 
         db.execSQL(CREATE_TABLE);
     }
@@ -54,6 +60,8 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_OUR_SCORE, game.getOurScore());
         values.put(KEY_THEIR_SCORE, game.getTheirScore());
+        values.put(KEY_OUR_NAME, game.getOurName());
+        values.put(KEY_THEIR_NAME, game.getTheirName());
 
         db.insert(TABLE_GAMES, null, values);
     }
@@ -64,7 +72,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Game game = new Game(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)));
+        Game game = new Game(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), cursor.getString(3), cursor.getString(4));
 
         cursor.close();
         return game;
