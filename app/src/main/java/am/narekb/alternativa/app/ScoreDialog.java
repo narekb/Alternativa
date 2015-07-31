@@ -34,9 +34,10 @@ public class ScoreDialog extends DialogFragment {
         np.setMinValue(1);
         np.setMaxValue(7);
         np.setWrapSelectorWheel(false);
+        np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
 
-        return new AlertDialog.Builder(getActivity())
+        AlertDialog di = new AlertDialog.Builder(getActivity())
                 .setTitle("Add points to " + whom)
                 .setView(view)
                 .setPositiveButton("Add",
@@ -55,5 +56,14 @@ public class ScoreDialog extends DialogFragment {
                         }
                 )
                 .create();
+
+        di.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface di) {
+                ((AlertDialog)di).getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.ColorPrimary));
+                ((AlertDialog)di).getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.ColorBlack));
+            }
+        });
+        return di;
     }
 }

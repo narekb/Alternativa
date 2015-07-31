@@ -32,7 +32,7 @@ public class NameDialog extends DialogFragment {
         label = (EditText) view.findViewById(R.id.team_name);
 
 
-        return new AlertDialog.Builder(getActivity())
+        AlertDialog di = new AlertDialog.Builder(getActivity())
                 .setTitle("Edit " + whose + " team name")
                 .setView(view)
                 .setPositiveButton("Change",
@@ -52,5 +52,14 @@ public class NameDialog extends DialogFragment {
                         }
                 )
                 .create();
+
+        di.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface di) {
+                ((AlertDialog)di).getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.ColorPrimary));
+                ((AlertDialog)di).getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.ColorBlack));
+            }
+        });
+        return di;
     }
 }
