@@ -26,7 +26,7 @@ public class StatsTab extends Fragment {
     Context mCtx;
     TextView rowId;
 
-    SimpleCursorAdapter sca;
+    CardCursorAdapter cca;
 
     public StatsTab() {
         // Required empty public constructor
@@ -50,34 +50,21 @@ public class StatsTab extends Fragment {
         getHandler();
         Cursor cursor = dbHandler.getAllGames();
 
-        String[] fromFields = new String[]{DBHandler.KEY_ID, DBHandler.KEY_OUR_SCORE, DBHandler.KEY_THEIR_SCORE, DBHandler.KEY_OUR_NAME, DBHandler.KEY_THEIR_NAME};
-        int[] intoViews = new int[]{R.id.rowId, R.id.cardOurScore, R.id.cardTheirScore, R.id.cardOurName, R.id.cardTheirName};
+        // String[] fromFields = new String[]{DBHandler.KEY_ID, DBHandler.KEY_OUR_SCORE, DBHandler.KEY_THEIR_SCORE, DBHandler.KEY_OUR_NAME, DBHandler.KEY_THEIR_NAME};
+        // int[] intoViews = new int[]{R.id.rowId, R.id.cardOurScore, R.id.cardTheirScore, R.id.cardOurName, R.id.cardTheirName};
 
-        sca = new SimpleCursorAdapter(mCtx, R.layout.item_layout, cursor, fromFields, intoViews, 0);
+        cca = new CardCursorAdapter(mCtx, R.layout.item_layout, cursor, 0);
 
         rootView = inflater.inflate(R.layout.stats_tab, container, false);
+
         pastGames = (ListView) rootView.findViewById(R.id.pastGames);
-
-        pastGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                rowId = (TextView)view.findViewById(R.id.rowId);
-                dbHandler.deleteGame(Integer.parseInt(rowId.getText().toString()));
-                sca.notifyDataSetChanged();
-                update();
-            }
-        });
-
-        pastGames.setAdapter(sca);
+        pastGames.setAdapter(cca);
         update();
 
         return rootView;
     }
 
-
-
-
     public void update() {
-        sca.swapCursor(dbHandler.getAllGames());
+        cca.swapCursor(dbHandler.getAllGames());
     }
 }

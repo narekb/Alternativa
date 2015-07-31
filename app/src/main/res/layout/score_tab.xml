@@ -19,9 +19,9 @@
 
             <TextView
                 android:id="@+id/our_label"
-                android:text="US"
+                android:text="TEAM 1"
                 android:textColor="#000"
-                android:textSize ="30sp"
+                android:textSize ="24sp"
                 android:gravity="center"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -58,9 +58,9 @@
 
             <TextView
                 android:id="@+id/their_label"
-                android:text="THEM"
+                android:text="TEAM 2"
                 android:textColor="#000"
-                android:textSize ="30sp"
+                android:textSize ="24sp"
                 android:gravity="center"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -98,6 +98,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="RESET GAME" />
+        android:text="SAVE AND RESET" />
 
 </RelativeLayout>
