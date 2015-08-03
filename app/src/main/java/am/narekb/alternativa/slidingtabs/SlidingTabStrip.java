@@ -16,7 +16,7 @@ package am.narekb.alternativa.slidingtabs;
  * limitations under the License.
  */
 
-import am.narekb.alternativa.R;
+import android.R;
 
 
 import android.content.Context;
