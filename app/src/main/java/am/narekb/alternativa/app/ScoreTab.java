@@ -131,9 +131,12 @@ public class ScoreTab extends Fragment implements View.OnClickListener {
         if(ourPoints != 0 || theirPoints != 0) {
             writeGameToDB(ourPoints, theirPoints, ourLabel.getText().toString(), theirLabel.getText().toString());
 
-            //Reset scores after game is added to DB
+            //Reset scores and team names after game is added to DB
             theirPoints = 0;
             ourPoints = 0;
+
+            ourLabel.setText("TEAM 1");
+            theirLabel.setText("TEAM 2");
 
             ourScore.setText("" + ourPoints);
             theirScore.setText("" + theirPoints);
